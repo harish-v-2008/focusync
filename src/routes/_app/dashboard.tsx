@@ -16,8 +16,8 @@ interface Profile {
   full_name: string | null;
   exam_name: string | null;
   exam_date: string | null;
-  current_streak: number;
-  daily_goal_hours: number;
+  current_streak: number | null;
+  daily_goal_hours: number | null;
 }
 
 function Dashboard() {
