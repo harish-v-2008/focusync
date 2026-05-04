@@ -9,38 +9,197 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppTrackerRouteImport } from './routes/_app/tracker'
+import { Route as AppTimerRouteImport } from './routes/_app/timer'
+import { Route as AppProfileRouteImport } from './routes/_app/profile'
+import { Route as AppPlannerRouteImport } from './routes/_app/planner'
+import { Route as AppFocusRouteImport } from './routes/_app/focus'
+import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppChatbotRouteImport } from './routes/_app/chatbot'
+import { Route as AppCameraRouteImport } from './routes/_app/camera'
+import { Route as AppAnalyticsRouteImport } from './routes/_app/analytics'
+import { Route as AppAboutRouteImport } from './routes/_app/about'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppTrackerRoute = AppTrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTimerRoute = AppTimerRouteImport.update({
+  id: '/timer',
+  path: '/timer',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPlannerRoute = AppPlannerRouteImport.update({
+  id: '/planner',
+  path: '/planner',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppFocusRoute = AppFocusRouteImport.update({
+  id: '/focus',
+  path: '/focus',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppChatbotRoute = AppChatbotRouteImport.update({
+  id: '/chatbot',
+  path: '/chatbot',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppCameraRoute = AppCameraRouteImport.update({
+  id: '/camera',
+  path: '/camera',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAboutRoute = AppAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/about': typeof AppAboutRoute
+  '/analytics': typeof AppAnalyticsRoute
+  '/camera': typeof AppCameraRoute
+  '/chatbot': typeof AppChatbotRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/focus': typeof AppFocusRoute
+  '/planner': typeof AppPlannerRoute
+  '/profile': typeof AppProfileRoute
+  '/timer': typeof AppTimerRoute
+  '/tracker': typeof AppTrackerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/about': typeof AppAboutRoute
+  '/analytics': typeof AppAnalyticsRoute
+  '/camera': typeof AppCameraRoute
+  '/chatbot': typeof AppChatbotRoute
+  '/dashboard': typeof AppDashboardRoute
+  '/focus': typeof AppFocusRoute
+  '/planner': typeof AppPlannerRoute
+  '/profile': typeof AppProfileRoute
+  '/timer': typeof AppTimerRoute
+  '/tracker': typeof AppTrackerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_app': typeof AppRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_app/about': typeof AppAboutRoute
+  '/_app/analytics': typeof AppAnalyticsRoute
+  '/_app/camera': typeof AppCameraRoute
+  '/_app/chatbot': typeof AppChatbotRoute
+  '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/focus': typeof AppFocusRoute
+  '/_app/planner': typeof AppPlannerRoute
+  '/_app/profile': typeof AppProfileRoute
+  '/_app/timer': typeof AppTimerRoute
+  '/_app/tracker': typeof AppTrackerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/about'
+    | '/analytics'
+    | '/camera'
+    | '/chatbot'
+    | '/dashboard'
+    | '/focus'
+    | '/planner'
+    | '/profile'
+    | '/timer'
+    | '/tracker'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/about'
+    | '/analytics'
+    | '/camera'
+    | '/chatbot'
+    | '/dashboard'
+    | '/focus'
+    | '/planner'
+    | '/profile'
+    | '/timer'
+    | '/tracker'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/auth'
+    | '/_app/about'
+    | '/_app/analytics'
+    | '/_app/camera'
+    | '/_app/chatbot'
+    | '/_app/dashboard'
+    | '/_app/focus'
+    | '/_app/planner'
+    | '/_app/profile'
+    | '/_app/timer'
+    | '/_app/tracker'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,21 +207,112 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/tracker': {
+      id: '/_app/tracker'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof AppTrackerRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/timer': {
+      id: '/_app/timer'
+      path: '/timer'
+      fullPath: '/timer'
+      preLoaderRoute: typeof AppTimerRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/profile': {
+      id: '/_app/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/planner': {
+      id: '/_app/planner'
+      path: '/planner'
+      fullPath: '/planner'
+      preLoaderRoute: typeof AppPlannerRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/focus': {
+      id: '/_app/focus'
+      path: '/focus'
+      fullPath: '/focus'
+      preLoaderRoute: typeof AppFocusRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/chatbot': {
+      id: '/_app/chatbot'
+      path: '/chatbot'
+      fullPath: '/chatbot'
+      preLoaderRoute: typeof AppChatbotRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/camera': {
+      id: '/_app/camera'
+      path: '/camera'
+      fullPath: '/camera'
+      preLoaderRoute: typeof AppCameraRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/analytics': {
+      id: '/_app/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/about': {
+      id: '/_app/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AppAboutRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppAboutRoute: typeof AppAboutRoute
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
+  AppCameraRoute: typeof AppCameraRoute
+  AppChatbotRoute: typeof AppChatbotRoute
+  AppDashboardRoute: typeof AppDashboardRoute
+  AppFocusRoute: typeof AppFocusRoute
+  AppPlannerRoute: typeof AppPlannerRoute
+  AppProfileRoute: typeof AppProfileRoute
+  AppTimerRoute: typeof AppTimerRoute
+  AppTrackerRoute: typeof AppTrackerRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppAboutRoute: AppAboutRoute,
+  AppAnalyticsRoute: AppAnalyticsRoute,
+  AppCameraRoute: AppCameraRoute,
+  AppChatbotRoute: AppChatbotRoute,
+  AppDashboardRoute: AppDashboardRoute,
+  AppFocusRoute: AppFocusRoute,
+  AppPlannerRoute: AppPlannerRoute,
+  AppProfileRoute: AppProfileRoute,
+  AppTimerRoute: AppTimerRoute,
+  AppTrackerRoute: AppTrackerRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
