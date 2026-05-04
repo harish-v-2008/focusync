@@ -14,10 +14,14 @@ import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppTrackerRouteImport } from './routes/_app/tracker'
 import { Route as AppTimerRouteImport } from './routes/_app/timer'
+import { Route as AppProfileRouteImport } from './routes/_app/profile'
+import { Route as AppPlannerRouteImport } from './routes/_app/planner'
 import { Route as AppFocusRouteImport } from './routes/_app/focus'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppChatbotRouteImport } from './routes/_app/chatbot'
 import { Route as AppCameraRouteImport } from './routes/_app/camera'
 import { Route as AppAnalyticsRouteImport } from './routes/_app/analytics'
+import { Route as AppAboutRouteImport } from './routes/_app/about'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -43,6 +47,16 @@ const AppTimerRoute = AppTimerRouteImport.update({
   path: '/timer',
   getParentRoute: () => AppRoute,
 } as any)
+const AppProfileRoute = AppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPlannerRoute = AppPlannerRouteImport.update({
+  id: '/planner',
+  path: '/planner',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppFocusRoute = AppFocusRouteImport.update({
   id: '/focus',
   path: '/focus',
@@ -51,6 +65,11 @@ const AppFocusRoute = AppFocusRouteImport.update({
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppChatbotRoute = AppChatbotRouteImport.update({
+  id: '/chatbot',
+  path: '/chatbot',
   getParentRoute: () => AppRoute,
 } as any)
 const AppCameraRoute = AppCameraRouteImport.update({
@@ -63,24 +82,37 @@ const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
   path: '/analytics',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAboutRoute = AppAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/about': typeof AppAboutRoute
   '/analytics': typeof AppAnalyticsRoute
   '/camera': typeof AppCameraRoute
+  '/chatbot': typeof AppChatbotRoute
   '/dashboard': typeof AppDashboardRoute
   '/focus': typeof AppFocusRoute
+  '/planner': typeof AppPlannerRoute
+  '/profile': typeof AppProfileRoute
   '/timer': typeof AppTimerRoute
   '/tracker': typeof AppTrackerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/about': typeof AppAboutRoute
   '/analytics': typeof AppAnalyticsRoute
   '/camera': typeof AppCameraRoute
+  '/chatbot': typeof AppChatbotRoute
   '/dashboard': typeof AppDashboardRoute
   '/focus': typeof AppFocusRoute
+  '/planner': typeof AppPlannerRoute
+  '/profile': typeof AppProfileRoute
   '/timer': typeof AppTimerRoute
   '/tracker': typeof AppTrackerRoute
 }
@@ -89,10 +121,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_app/about': typeof AppAboutRoute
   '/_app/analytics': typeof AppAnalyticsRoute
   '/_app/camera': typeof AppCameraRoute
+  '/_app/chatbot': typeof AppChatbotRoute
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/focus': typeof AppFocusRoute
+  '/_app/planner': typeof AppPlannerRoute
+  '/_app/profile': typeof AppProfileRoute
   '/_app/timer': typeof AppTimerRoute
   '/_app/tracker': typeof AppTrackerRoute
 }
@@ -101,20 +137,28 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/about'
     | '/analytics'
     | '/camera'
+    | '/chatbot'
     | '/dashboard'
     | '/focus'
+    | '/planner'
+    | '/profile'
     | '/timer'
     | '/tracker'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
+    | '/about'
     | '/analytics'
     | '/camera'
+    | '/chatbot'
     | '/dashboard'
     | '/focus'
+    | '/planner'
+    | '/profile'
     | '/timer'
     | '/tracker'
   id:
@@ -122,10 +166,14 @@ export interface FileRouteTypes {
     | '/'
     | '/_app'
     | '/auth'
+    | '/_app/about'
     | '/_app/analytics'
     | '/_app/camera'
+    | '/_app/chatbot'
     | '/_app/dashboard'
     | '/_app/focus'
+    | '/_app/planner'
+    | '/_app/profile'
     | '/_app/timer'
     | '/_app/tracker'
   fileRoutesById: FileRoutesById
@@ -173,6 +221,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppTimerRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/profile': {
+      id: '/_app/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AppProfileRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/planner': {
+      id: '/_app/planner'
+      path: '/planner'
+      fullPath: '/planner'
+      preLoaderRoute: typeof AppPlannerRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/focus': {
       id: '/_app/focus'
       path: '/focus'
@@ -185,6 +247,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof AppDashboardRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/chatbot': {
+      id: '/_app/chatbot'
+      path: '/chatbot'
+      fullPath: '/chatbot'
+      preLoaderRoute: typeof AppChatbotRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/camera': {
@@ -201,23 +270,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAnalyticsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/about': {
+      id: '/_app/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AppAboutRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppAboutRoute: typeof AppAboutRoute
   AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppCameraRoute: typeof AppCameraRoute
+  AppChatbotRoute: typeof AppChatbotRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppFocusRoute: typeof AppFocusRoute
+  AppPlannerRoute: typeof AppPlannerRoute
+  AppProfileRoute: typeof AppProfileRoute
   AppTimerRoute: typeof AppTimerRoute
   AppTrackerRoute: typeof AppTrackerRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAboutRoute: AppAboutRoute,
   AppAnalyticsRoute: AppAnalyticsRoute,
   AppCameraRoute: AppCameraRoute,
+  AppChatbotRoute: AppChatbotRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppFocusRoute: AppFocusRoute,
+  AppPlannerRoute: AppPlannerRoute,
+  AppProfileRoute: AppProfileRoute,
   AppTimerRoute: AppTimerRoute,
   AppTrackerRoute: AppTrackerRoute,
 }
