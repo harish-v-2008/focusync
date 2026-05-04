@@ -12,8 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppTrackerRouteImport } from './routes/_app/tracker'
+import { Route as AppTimerRouteImport } from './routes/_app/timer'
 import { Route as AppFocusRouteImport } from './routes/_app/focus'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
+import { Route as AppCameraRouteImport } from './routes/_app/camera'
+import { Route as AppAnalyticsRouteImport } from './routes/_app/analytics'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -29,6 +33,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppTrackerRoute = AppTrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTimerRoute = AppTimerRouteImport.update({
+  id: '/timer',
+  path: '/timer',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppFocusRoute = AppFocusRouteImport.update({
   id: '/focus',
   path: '/focus',
@@ -39,33 +53,81 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
+const AppCameraRoute = AppCameraRouteImport.update({
+  id: '/camera',
+  path: '/camera',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/analytics': typeof AppAnalyticsRoute
+  '/camera': typeof AppCameraRoute
   '/dashboard': typeof AppDashboardRoute
   '/focus': typeof AppFocusRoute
+  '/timer': typeof AppTimerRoute
+  '/tracker': typeof AppTrackerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/analytics': typeof AppAnalyticsRoute
+  '/camera': typeof AppCameraRoute
   '/dashboard': typeof AppDashboardRoute
   '/focus': typeof AppFocusRoute
+  '/timer': typeof AppTimerRoute
+  '/tracker': typeof AppTrackerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_app/analytics': typeof AppAnalyticsRoute
+  '/_app/camera': typeof AppCameraRoute
   '/_app/dashboard': typeof AppDashboardRoute
   '/_app/focus': typeof AppFocusRoute
+  '/_app/timer': typeof AppTimerRoute
+  '/_app/tracker': typeof AppTrackerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/focus'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/analytics'
+    | '/camera'
+    | '/dashboard'
+    | '/focus'
+    | '/timer'
+    | '/tracker'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/focus'
-  id: '__root__' | '/' | '/_app' | '/auth' | '/_app/dashboard' | '/_app/focus'
+  to:
+    | '/'
+    | '/auth'
+    | '/analytics'
+    | '/camera'
+    | '/dashboard'
+    | '/focus'
+    | '/timer'
+    | '/tracker'
+  id:
+    | '__root__'
+    | '/'
+    | '/_app'
+    | '/auth'
+    | '/_app/analytics'
+    | '/_app/camera'
+    | '/_app/dashboard'
+    | '/_app/focus'
+    | '/_app/timer'
+    | '/_app/tracker'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -97,6 +159,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_app/tracker': {
+      id: '/_app/tracker'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof AppTrackerRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/timer': {
+      id: '/_app/timer'
+      path: '/timer'
+      fullPath: '/timer'
+      preLoaderRoute: typeof AppTimerRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/_app/focus': {
       id: '/_app/focus'
       path: '/focus'
@@ -111,17 +187,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
+    '/_app/camera': {
+      id: '/_app/camera'
+      path: '/camera'
+      fullPath: '/camera'
+      preLoaderRoute: typeof AppCameraRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/analytics': {
+      id: '/_app/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
+  AppCameraRoute: typeof AppCameraRoute
   AppDashboardRoute: typeof AppDashboardRoute
   AppFocusRoute: typeof AppFocusRoute
+  AppTimerRoute: typeof AppTimerRoute
+  AppTrackerRoute: typeof AppTrackerRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAnalyticsRoute: AppAnalyticsRoute,
+  AppCameraRoute: AppCameraRoute,
   AppDashboardRoute: AppDashboardRoute,
   AppFocusRoute: AppFocusRoute,
+  AppTimerRoute: AppTimerRoute,
+  AppTrackerRoute: AppTrackerRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
